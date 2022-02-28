@@ -43,7 +43,8 @@ void Quicksort(int arr[], int low, int high){
 }
     
 int main(){
-    int arraytxt[3];
+    // you need to manually replace 9 and enter the length of the array in the next line
+    int arraytxt[9];
     int w = 0;
     ifstream in("hw3.txt");
     while (in){
