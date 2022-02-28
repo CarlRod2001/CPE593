@@ -57,12 +57,8 @@ int main(){
     printArr(arraytxt, s);
     
     srand(time(0));
-    // The foolowing are test cases
-    
-    //int arr[] = {6, 7, 4, 8, 20, 19};
-    //int arr[] = {29, 31, 45, 211, 12, 1};
-    int arr[] = {1, 32, 3, 43, 93, 6};
-    //int arr[] ={10, 9, 9, 8, 7, 6, 6, 5, 4, 3, 2, 1};
+    // The foolowing is a test case
+    int arr[] ={10, 9, 9, 8, 7, 6, 6, 5, 4, 3, 2, 1};
     int n = sizeof(arr) / sizeof(arr[0]);
     printArr(arr, n);
     
