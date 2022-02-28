@@ -51,7 +51,10 @@ int main(){
     }
     int s = sizeof(arr) / sizeof(arr[0]);
     printArr(arraytxt, s);
-
+    
+    Quicksort(arr, 0, 8);
+    printArr(arraytxt, s);
+    
     srand(time(0));
     // The foolowing are test cases
     
