@@ -43,7 +43,6 @@ void Quicksort(int arr[], int low, int high){
 }
     
 int main(){
-    // you need to manually replace 9 and enter the length of the array in the next line
     int Lw;
     int w = 0; 
     ifstream in("hw3.txt");
@@ -59,7 +58,7 @@ int main(){
     printArr(arraytxt, s);
     
     srand(time(0));
-    // The foolowing is a test case
+    // The following is a test case
     int arr[] ={10, 9, 9, 8, 7, 6, 6, 5, 4, 3, 2, 1};
     int n = sizeof(arr) / sizeof(arr[0]);
     printArr(arr, n);
