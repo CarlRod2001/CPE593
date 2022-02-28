@@ -2,6 +2,21 @@
 #include <fstream>
 #include <string>
 using namespace std;
+
+int printElements(int array[])
+{
+    int total = 0;
+    int i = 0;
+    cout << "\n\n";
+    for (i=0; i<100; i++)
+    {
+        cout << array[i] << ",";
+        total = total + array[i];
+    }
+    cout << "\n\n";
+    return total;
+}
+
 int main()
 {
     int array[100];
