@@ -49,7 +49,7 @@ int main(){
     while (in){
         in >> arraytxt[w++];
     }
-    int s = sizeof(arr) / sizeof(arr[0]);
+    int s = sizeof(arraytxt) / sizeof(arraytxt[0]);
     printArr(arraytxt, s);
     
     Quicksort(arr, 0, 8);
