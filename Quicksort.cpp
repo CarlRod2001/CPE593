@@ -43,13 +43,14 @@ void Quicksort(int arr[], int low, int high){
 }
     
 int main(){
-    int arraytxt[5];
+    int arraytxt[9];
     int w = 0;
     ifstream in("hw3.txt");
     while (in){
         in >> arraytxt[w++];
     }
-    printArr(arraytxt, 5);
+    int s = sizeof(arr) / sizeof(arr[0]);
+    printArr(arraytxt, s);
 
     srand(time(0));
     // The foolowing are test cases
