@@ -41,6 +41,8 @@ void Quicksort(int arr[], int low, int high){
     Quicksort(arr, low, p-1);
     Quicksort(arr, p+1, high);
 }
+    
+int main(){
     int arraytxt[]=new int[5];
     int w = 0;
     ifstream in("hw3.txt");
