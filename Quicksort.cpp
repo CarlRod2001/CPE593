@@ -1,7 +1,9 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+
 using namespace std;
+
 // I pledge my honor that I have abided by the Stevens Honor System
 // Carlitos Rodriguez
 void swap(int* a, int* b){
@@ -39,12 +41,17 @@ void Quicksort(int arr[], int low, int high){
     Quicksort(arr, low, p-1);
     Quicksort(arr, p+1, high);
 }
+    int arraytxt[]=new int[5];
+    int w = 0;
+    ifstream in("hw3.txt");
+    while (in){
+        in >> arraytxt[w++];
+    }
+    printArr(arraytxt, 5);
 
-int main()
-{
     srand(time(0));
     // The foolowing are test cases
-    int arr[] = {6, 5, 4, 3, 2, 1};
+    
     //int arr[] = {6, 7, 4, 8, 20, 19};
     //int arr[] = {29, 31, 45, 211, 12, 1};
     //int arr[] = {1, 32, 3, 43, 93, 6};
