@@ -2,24 +2,18 @@
 #include <fstream>
 #include <string>
 using namespace std;
-int main ()
+int main()
 {
-    string array[2]; 
-    short loop=0; 
-    string line; 
-    ifstream myfile ("hw3.txt"); 
-    if (myfile.is_open()) 
+    int array[100];
+    int i=0;
+
+    ifstream in("hw3.txt");
+    while (in)
     {
-        while (! myfile.eof() ) 
-        {
-            getline (myfile,line); 
-            array[loop] = line;
-            cout << array[loop] << endl; 
-            loop++;
-        }
-        myfile.close(); 
+        in >> array[i++];
     }
-    else cout << "can't open the file"; 
-    system("PAUSE");
-    return 0;
+
+    int total = printElements(array);
+    int average = total / 100;
+    cout << "Total: " << total << "\n";
 }
