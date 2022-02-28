@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
-
+#include <fstream>
 using namespace std;
 
 // I pledge my honor that I have abided by the Stevens Honor System
