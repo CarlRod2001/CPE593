@@ -43,7 +43,7 @@ void Quicksort(int arr[], int low, int high){
 }
     
 int main(){
-    int* arraytxt[] = new int[5];
+    int arraytxt[5];
     int w = 0;
     ifstream in("hw3.txt");
     while (in){
