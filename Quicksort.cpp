@@ -52,7 +52,7 @@ int main(){
     int s = sizeof(arraytxt) / sizeof(arraytxt[0]);
     printArr(arraytxt, s);
     
-    Quicksort(arr, 0, 8);
+    Quicksort(arraytxt, 0, 8);
     printArr(arraytxt, s);
     
     srand(time(0));
