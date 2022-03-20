@@ -1,87 +1,114 @@
 #include <iostream>
+using namespace std;
+// I pledge my honor that I have abided by the Stevens Honor System
+// Carlitos Rodriguez
 
-template<typename T>
-class BadGrowArray {
+class GrowArray
+{
 private:
-	T* p;
-	int size;
+  int *p;
+  uint32_t size;		// the number of elements used
+  uint32_t capacity;		// the amount of memory
+  void checkGrow (){
+    int *old = p;
+    p = new int[2 * capacity];
+    for (int i = 0; i < size; i++){
+	    p[i] = old[i];
+    }
+    delete[] old;
+    capacity = 2 * capacity;
+  }
 public:
-	BadGrowArray() : p(nullptr), size(0) {}
-	~BadGrowArray() {
-		delete [] p;
-	}
-	// there is no copy constructor or operator =
-  BadGrowArray(const BadGrowArray& orig) = delete;	
-  BadGrowArray& operator =(const BadGrowArray& orig) = delete;	
-  void addEnd(int v) { // O( n  )
-		int* old = p; //O(1)
-    p = new int[size+1]; //O(1)
-    //memcpy(p, old, size* sizeof(int));
-    for (int i = 0; i < size; i++) //O(n)
-      p[i] = old[i];
+  GrowArray (){
+    p = nullptr;
+    size = 0;
+    capacity = 1;
+  }
+  void createArray (int v){
+    if (size == capacity){
+	    checkGrow ();
+    }
+    int *old = p;
+    p = new int[size + 1];
+    for (int i = 0; i < size; i++){
+	    p[i] = old[i];
+    }
     p[size] = v;
-    delete [] old;
+    delete[]old;
     size++;
-	}
-	void addStart(int v) { // O(n)
-		int* old = p;
-    p = new int[size+1]; //O(1)
-		p[0] = v;
-		for (int i = 0; i < size; i++) // O(n)
-			p[i+1] = old[i];
-    delete [] old;
+  }
+  void addEnd (int v){
+    if (size == capacity){
+	    checkGrow ();
+    }
+    p[size] = v;
     size++;
-	}
+  }
+  
+  void addStart (int v){
+    if (size == capacity){
+	checkGrow ();
+    }
+    int *old = p;
+    p = new int[size + 1];
 
-	void insert(int pos, int v) { //O(n)
-		int* old = p;
-    p = new int[size+1]; //O(1)
+    for (int i = 0; i < 0; i++)
+      p[i] = old[i];
+    p[0] = v;
+    for (int i = 0; i < size; i++)
+      p[i + 1] = old[i];
+    delete[]old;
+    size++;
+  }
+  void removeStart (){
+    if (size > 0) {
+        for (int i = 0; i < size - 1; i++) {
+        p[i] = p[i + 1];
+        }
+        p[size - 1] = 0;
+        size--;
+    }
+  }
+  void removeEnd (){
+    if (size > 0){
+	    p[size - 1] = 0;
+	    size--;
+    }
+  }
 
-    for (int i = 0; i < pos; i++)
-			p[i] = old[i];
-		p[pos] = v;
-    for (int i = pos; i < size; i++)
-			p[i+1] = old[i];
-    delete [] old;
-    size++;		
-	}
-	
-	void removeEnd() { // O(n)
-		int* old = p;
-		p = new int[size-1];
-		for (int i = 0; i < size-1; i++)
-			p[i] = old[i];
-		delete [] old;
-    size--;
-	}
-
-	void removeStart() { // O(??)
-
-	}
-
-	int getSize() const { // O(??)
-
-	}
-
-	
+  void removeEvens (){
+    int j = 0;
+    for (int i = 0; i < size; i++){
+	    if (p[i] % 2 != 0){
+	    p[j++] = p[i];
+	  }
+    }
+    int xs = (size)-j;
+    for (int i = 0; i < xs; i++){
+        p[size - 1] = 0;
+	    size--;
+    }
+  }
+  void printArr (){
+    for (int i = 0; i < size; i++){
+	    cout << p[i] << " ";
+    }
+    cout << endl;
+    cout << "size: " << size << endl;
+    cout << "capacity: " << capacity <<  endl;
+    cout << endl;
+  }
 };
 
-void f(BadGrowArray<int> x) {
+int
+main (){
+  GrowArray a;
+  for (int i = 0; i < 500; i++)
+    a.createArray (i);
 
-}
+  for (int i = 0; i < 100; i++)
+		a.addEnd(i); // every time you need to grow, double
 
-int main() {
-	for (uint64_t i = 0; i < 1000000000000; i++) {
-		BadGrowArray<int> a;
-	}
-
-	BadGrowArray<int> c;
-	c.addEnd(5);
-	f(c); // makes a copy
-	BadGrowArray<int> d = c;
 	
-
-	BadGrowArray<double> b;
-
-
+  a.printArr();
 }
