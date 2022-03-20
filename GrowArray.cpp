@@ -8,47 +8,38 @@ private:
 	uint32_t capacity; // the amount of memory
 	void checkGrow() {
 		if (size == capacity){
+		    int* old = p;
+	        p = new int [size+1];
+	        for (int i = 0; i<size; i++){
+	            p[i] = old[i];
+	        }
 		    capacity = capacity*2;
 		}
-		// if the memory needs to grow, double in size
-		//TODO: YOU IMPLEMENT THIS
 	}
 public:
 	void addEnd(int v) {
-		if (size == capacity){
-		    checkGrow();
-		}
-		int* old = p;
-	    p = new int [size+1];
-	    for (int i = 0; i<size; i++){
-	        p[i] = old[i];
-	    }
-	    p[size] = v;
-	    delete[] old;
-	    size++;
-		//array[size] = v;
-        //size++;
-		
+		checkGrow();
 	}
 
 	void addStart(int v) {
-	    int* old = p;
-	    p = new int [size+1];
-	    p[0] = v;
-	    for (int i = 0; i<size; i++){
-	        p[i+1] = old[i];
-	    }
-	    delete[] old;
-	    size++;
+	    checkGrow();
+
 	}
+	void removeStart() {
+	    checkGrow();
+	}
+	
 	void removeEnd() {
-	    int* old = p;
-	    p = new int [size-1];
-	    for (int i = 0; i<size; i++){
-	        p[i] = old[i];
+	    checkGrow();
+	}
+	
+	void removeEvens() {
+	    int j = 0;
+	    for (int i = 0; i< size; i++){
+	        if (a[i]%2 == 0){
+	            a[j++] = a[i];
+	        }
 	    }
-	    delete[] old;
-	    size--;
 	}
 };
 
@@ -66,5 +57,10 @@ int main() {
 	for (int i = 0; i < 90500; i++)
 		a.removeEnd();
 
-  cout << a << '\n';
+	for (int i = 0; i < 9000; i++)
+		a.removeStart();
+
+	a.removeEvens();
+
+	 cout << a << '\n';
 }
