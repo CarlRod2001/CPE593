@@ -1,66 +1,87 @@
 #include <iostream>
-using namespace std;
 
-class GrowArray {
+template<typename T>
+class BadGrowArray {
 private:
-	int* p;
-	uint32_t size; // the number of elements used
-	uint32_t capacity; // the amount of memory
-	void checkGrow() {
-		if (size == capacity){
-		    int* old = p;
-	        p = new int [size+1];
-	        for (int i = 0; i<size; i++){
-	            p[i] = old[i];
-	        }
-		    capacity = capacity*2;
-		}
-	}
+	T* p;
+	int size;
 public:
-	void addEnd(int v) {
-		checkGrow();
+	BadGrowArray() : p(nullptr), size(0) {}
+	~BadGrowArray() {
+		delete [] p;
+	}
+	// there is no copy constructor or operator =
+  BadGrowArray(const BadGrowArray& orig) = delete;	
+  BadGrowArray& operator =(const BadGrowArray& orig) = delete;	
+  void addEnd(int v) { // O( n  )
+		int* old = p; //O(1)
+    p = new int[size+1]; //O(1)
+    //memcpy(p, old, size* sizeof(int));
+    for (int i = 0; i < size; i++) //O(n)
+      p[i] = old[i];
+    p[size] = v;
+    delete [] old;
+    size++;
+	}
+	void addStart(int v) { // O(n)
+		int* old = p;
+    p = new int[size+1]; //O(1)
+		p[0] = v;
+		for (int i = 0; i < size; i++) // O(n)
+			p[i+1] = old[i];
+    delete [] old;
+    size++;
 	}
 
-	void addStart(int v) {
-	    checkGrow();
+	void insert(int pos, int v) { //O(n)
+		int* old = p;
+    p = new int[size+1]; //O(1)
+
+    for (int i = 0; i < pos; i++)
+			p[i] = old[i];
+		p[pos] = v;
+    for (int i = pos; i < size; i++)
+			p[i+1] = old[i];
+    delete [] old;
+    size++;		
+	}
+	
+	void removeEnd() { // O(n)
+		int* old = p;
+		p = new int[size-1];
+		for (int i = 0; i < size-1; i++)
+			p[i] = old[i];
+		delete [] old;
+    size--;
+	}
+
+	void removeStart() { // O(??)
 
 	}
-	void removeStart() {
-	    checkGrow();
+
+	int getSize() const { // O(??)
+
 	}
+
 	
-	void removeEnd() {
-	    checkGrow();
-	}
-	
-	void removeEvens() {
-	    int j = 0;
-	    for (int i = 0; i< size; i++){
-	        if (a[i]%2 == 0){
-	            a[j++] = a[i];
-	        }
-	    }
-	}
 };
 
+void f(BadGrowArray<int> x) {
+
+}
+
 int main() {
-	GrowArray a(500); // empty list, with 500 elements
+	for (uint64_t i = 0; i < 1000000000000; i++) {
+		BadGrowArray<int> a;
+	}
 
-	for (int i = 0; i < 500; i++)
-		a.addEnd(i); // really fast!
+	BadGrowArray<int> c;
+	c.addEnd(5);
+	f(c); // makes a copy
+	BadGrowArray<int> d = c;
+	
 
-	for (int i = 0; i < 100000; i++)
-		a.addEnd(i); // every time you need to grow, double
+	BadGrowArray<double> b;
 
-	a.addStart(5);
 
-	for (int i = 0; i < 90500; i++)
-		a.removeEnd();
-
-	for (int i = 0; i < 9000; i++)
-		a.removeStart();
-
-	a.removeEvens();
-
-	 cout << a << '\n';
 }
