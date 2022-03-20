@@ -17,31 +17,33 @@ private:
     }
     delete[] old;
     capacity = 2 * capacity;
-  }
+}
 public:
   GrowArray (){
     p = nullptr;
     size = 0;
-    capacity = 1;
+    capacity=1;
   }
+  //GrowArray ( u i n t 3 2 t i n i t i a l C a p a c i t y ) ;
   void createArray (int v){
     if (size == capacity){
 	    checkGrow ();
     }
-    int *old = p;
-    p = new int[size + 1];
+    int *temp;
+    temp = new int[size+1];
     for (int i = 0; i < size; i++){
-	    p[i] = old[i];
+	    temp[i] = p[i];
     }
-    p[size] = v;
-    delete[]old;
+    temp[size] = v;
+    delete[] p;
+    p=temp;
     size++;
   }
   void addEnd (int v){
     if (size == capacity){
 	    checkGrow ();
     }
-    p[size] = v;
+    p[size]=v;
     size++;
   }
   
@@ -51,7 +53,6 @@ public:
     }
     int *old = p;
     p = new int[size + 1];
-
     for (int i = 0; i < 0; i++)
       p[i] = old[i];
     p[0] = v;
@@ -93,22 +94,33 @@ public:
     for (int i = 0; i < size; i++){
 	    cout << p[i] << " ";
     }
-    cout << endl;
-    cout << "size: " << size << endl;
-    cout << "capacity: " << capacity <<  endl;
-    cout << endl;
+    // cout << endl; cout << "size: " << size << endl; cout << "capacity: " << capacity <<  endl;
   }
 };
 
 int
 main (){
-  GrowArray a;
-  for (int i = 0; i < 500; i++)
-    a.createArray (i);
+    // start of creation of the array
+    GrowArray a;
+    int NoE = 500; // set Number Of Elements equal to 500
+    for (int i = 0; i < 1; i++)
+        a.createArray (i);
+    for (int i = 0; i < NoE; i++)
+        a.addEnd (i);
+    a.removeStart();
+    // end of creation of the array
+    
+    for (int i = 0; i < 100000; i++)
+		a.addEnd(i); 
 
-  for (int i = 0; i < 100; i++)
-		a.addEnd(i); // every time you need to grow, double
+	a.addStart(5);
 
-	
-  a.printArr();
+	for (int i = 0; i < 90500; i++)
+		a.removeEnd();
+
+	for (int i = 0; i < 9000; i++)
+		a.removeStart();
+		
+	a.removeEvens();
+	a.printArr();
 }
