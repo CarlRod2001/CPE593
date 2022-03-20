@@ -27,14 +27,13 @@ public:
     if (size == capacity){
 	    checkGrow ();
     }
-    int *temp;
-    temp = new int[size+1];
+    int *temp = p;
+    p = new int[size+1];
     for (int i = 0; i < size; i++){
-	    temp[i] = p[i];
+	    p[i] = temp[i];
     }
-    temp[size] = v;
-    delete[] p;
-    p=temp;
+    p[size] = v;
+    delete[] temp;
     size++;
   }
   void addEnd (int v){
