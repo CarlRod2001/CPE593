@@ -3,8 +3,7 @@ using namespace std;
 // I pledge my honor that I have abided by the Stevens Honor System
 // Carlitos Rodriguez
 
-class GrowArray
-{
+class GrowArray{
 private:
     int *p;
     uint32_t size;		// the number of elements used
@@ -98,8 +97,7 @@ public:
     }
 };
 
-int
-main (){
+int main (){
     // start of creation of the array
     GrowArray a;
     int NoE = 500; // set Number Of Elements equal to 500
