@@ -9,32 +9,23 @@ private:
   uint32_t size;		// the number of elements used
   uint32_t capacity;		// the amount of memory
   void checkGrow (){
-    int *old = p;
-    p = new int[2 * capacity];
-    for (int i = 0; i < size; i++){
-	    p[i] = old[i];
+    int *old;
+    old = new int[2 * capacity];
+    for (int i = 0; i < capacity; i++){
+	    old[i] = p[i];
     }
-    delete[] old;
+    delete[] p;
+    p = old;
     capacity = 2 * capacity;
 }
 public:
-  GrowArray (){
+  GrowArray (uint32_t val){
     p = nullptr;
     size = 0;
-    capacity=1;
+    capacity=val;
   }
-  void createArray (int v){
-    if (size == capacity){
-	    checkGrow ();
-    }
-    int *temp = p;
-    p = new int[size+1];
-    for (int i = 0; i < size; i++){
-	    p[i] = temp[i];
-    }
-    p[size] = v;
-    delete[] temp;
-    size++;
+  void createArray (){
+    p = new int[capacity];
   }
   void addEnd (int v){
     if (size == capacity){
@@ -85,27 +76,24 @@ public:
 	    size--;
     }
   }
-  void printArr (){
+  void printArr(){
     for (int i = 0; i < size; i++){
 	    cout << p[i] << " ";
     }
-    // cout << endl; cout << "size: " << size << endl; cout << "capacity: " << capacity <<  endl;
+    //cout << endl; cout << "size: " << size << endl; cout << "capacity: " << capacity <<  endl;
   }
 };
 
 int main (){
-    // start of creation of the array
-    GrowArray a;
-    int NoE = 500; // set Number Of Elements equal to 500
-    for (int i = 0; i < 1; i++)
-        a.createArray (i);
-    for (int i = 0; i < NoE; i++)
-        a.addEnd (i);
-    a.removeStart();
-    // end of creation of the array
     
-    for (int i = 0; i < 100000; i++)
-		a.addEnd(i); 
+    GrowArray a(500);
+    a.createArray();
+
+    for (int i = 0; i < 500; i++)
+		a.addEnd(i);
+
+	for (int i = 0; i < 100000; i++)
+		a.addEnd(i);
 
 	a.addStart(5);
 
@@ -114,7 +102,27 @@ int main (){
 
 	for (int i = 0; i < 9000; i++)
 		a.removeStart();
-		
-	a.removeEvens();
+
+    a.removeEvens();
+    a.printArr();
+    
+    //Simple Test:
+    /*
+    GrowArray a(10);
+    a.createArray();
+
+    for (int i = 0; i < 15; i++)
+		a.addEnd(i);
 	a.printArr();
+	for (int i = 0; i < 5; i++)
+		a.removeEnd();
+	a.printArr();
+	for (int i = 0; i < 5; i++)
+		a.removeStart();
+	a.printArr();
+	a.addStart(987);
+	a.printArr();
+
+    a.removeEvens();
+    a.printArr();*/
 }
